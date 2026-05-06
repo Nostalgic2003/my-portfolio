@@ -6,6 +6,7 @@ const NavBar = () => {
   // track if the user has scrolled down the page
   const [scrolled, setScrolled] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     // create an event listener for when the user scrolls
@@ -32,6 +33,10 @@ const NavBar = () => {
     };
   }, []);
 
+  const handleNavClick = () => {
+    setMobileMenuOpen(false);
+  };
+
   return (
     <header className={`navbar ${scrolled ? "scrolled" : "not-scrolled"} ${modalOpen ? "blur" : ""}`}>
       <div className="inner">
@@ -53,9 +58,44 @@ const NavBar = () => {
             </ul>
           </nav>
 
+          {/* Mobile Menu */}
+          <div className="md:hidden flex flex-col">
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="text-white-50 hover:text-white transition cursor-pointer p-2"
+              aria-label="Toggle menu"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                {mobileMenuOpen ? (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                ) : (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                )}
+              </svg>
+            </button>
+
+            {mobileMenuOpen && (
+              <nav className="absolute top-full left-0 right-0 bg-black/95 backdrop-blur-sm border-b border-white/10 z-50">
+                <ul className="flex flex-col">
+                  {navLinks.map(({ link, name }: { link: string; name: string }) => (
+                    <li key={name}>
+                      <a
+                        href={link}
+                        onClick={handleNavClick}
+                        className="block px-4 sm:px-5 py-3 text-white-50 hover:text-white transition border-b border-white/5 last:border-b-0"
+                      >
+                        {name}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            )}
+          </div>
+
           <div>
             <button 
-              className="flex items-center gap-1 text-white-50 hover:text-white transition cursor-pointer"
+              className="flex items-center gap-1 text-white-50 hover:text-white transition cursor-pointer px-2 py-2"
             >
               <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                 <circle cx="12" cy="12" r="10" />

@@ -22,7 +22,7 @@ const Hero = () => {
 
       <div className="hero-layout mt-10">
         {/* LEFT: Hero Content */}
-        <header className="flex flex-col justify-center md:w-full w-screen lg:px-20 md:px-12 px-4 sm:px-5 flex-1">
+        <header className="flex flex-col justify-center md:w-full w-full lg:px-20 md:px-12 px-4 sm:px-5 flex-1">
           <div className="flex flex-col gap-2">
             <div className="hero-text">
               <h1>Hi! I'm CramDev</h1>
