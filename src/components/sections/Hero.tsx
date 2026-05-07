@@ -58,7 +58,12 @@ const Hero = () => {
                   animation: bounce 2s infinite;
                 }
               `}</style>
-              <button className="px-4 sm:px-6 py-2.5 sm:py-3 bg-white text-black font-semibold rounded-lg hover:bg-gray-200 transition flex items-center justify-center gap-2 cursor-pointer text-sm sm:text-base">
+              <button 
+                onClick={() => {
+                  const projectsSection = document.getElementById("projects");
+                  projectsSection?.scrollIntoView({ behavior: "smooth" });
+                }}
+                className="px-4 sm:px-6 py-2.5 sm:py-3 bg-white text-black font-semibold rounded-lg hover:bg-gray-200 transition flex items-center justify-center gap-2 cursor-pointer text-sm sm:text-base">
                 See My Work
                 <svg className="w-4 h-4 sm:w-5 sm:h-5 bounce-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />

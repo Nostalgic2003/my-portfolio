@@ -104,7 +104,7 @@ section {
   }
 
   &.not-scrolled {
-    @apply lg:top-10 md:top-5 top-0 bg-transparent py-0.5;
+    @apply lg:top-10 md:top-5 top-3 bg-transparent py-0.5;
   }
 
   &.blur {

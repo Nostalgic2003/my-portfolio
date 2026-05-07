@@ -61,7 +61,7 @@ const NavBar = () => {
           {/* Mobile Hamburger Menu */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden flex flex-col gap-1.5 cursor-pointer p-2"
+            className="md:hidden flex flex-col gap-1.5 cursor-pointer p-2 -mr-2 sm:-mr-1.5"
           >
             <span className={`block w-6 h-0.5 bg-white transition-all ${mobileMenuOpen ? 'rotate-45 translate-y-2' : ''}`}></span>
             <span className={`block w-6 h-0.5 bg-white transition-all ${mobileMenuOpen ? 'opacity-0' : ''}`}></span>
