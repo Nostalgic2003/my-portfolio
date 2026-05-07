@@ -84,7 +84,7 @@ section {
   }
 
   .hero-layout {
-    @apply relative z-10 xl:mt-20 lg:mt-24 md:mt-28 mt-32 md:h-dvh h-[80vh] flex xl:items-center items-start justify-center;
+    @apply relative z-10 xl:mt-20 lg:mt-24 md:mt-28 mt-32 h-auto md:h-dvh flex xl:items-center items-start justify-center;
   }
 
   .hero-text {
@@ -159,10 +159,24 @@ section {
   transition: all cubic-bezier(0.71, 0.03, 0.34, 1);
 }
 
+@media (max-width: 1023px) {
+  .slide {
+    width: 100%;
+    text-align: center;
+  }
+}
+
 .wrapper {
   display: flex;
   flex-direction: column;
   animation: wordSlider 8s infinite cubic-bezier(0.9, 0.01, 0.3, 0.99);
+}
+
+@media (max-width: 1023px) {
+  .wrapper {
+    align-items: center;
+    margin: 0 auto;
+  }
 }
 
 @keyframes wordSlider {

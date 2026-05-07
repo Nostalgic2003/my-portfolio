@@ -53,7 +53,7 @@ const About = () => {
     }, []);
 
     return (
-        <section id="about" className="bg-black text-white pt-16 sm:pt-20 pb-0 md:pt-24 md:pb-0 relative overflow-hidden">
+        <section id="about" className="bg-black text-white pt-32 sm:pt-32 md:pt-24 md:pb-0 pb-0 relative overflow-hidden">
             {/* Decorative background elements */}
             <div className="absolute top-0 right-0 w-64 sm:w-80 md:w-96 h-64 sm:h-80 md:h-96 bg-white/5 rounded-full -mr-32 sm:-mr-40 md:-mr-48 -mt-32 sm:-mt-40 md:-mt-48 blur-3xl"></div>
             <div className="absolute bottom-0 left-0 w-56 sm:w-64 md:w-80 h-56 sm:h-64 md:h-80 bg-white/5 rounded-full -ml-28 sm:-ml-32 md:-ml-40 -mb-28 sm:-mb-32 md:-mb-40 blur-3xl"></div>

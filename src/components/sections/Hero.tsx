@@ -20,9 +20,9 @@ const Hero = () => {
         <img src="bg.png" alt="" />
       </div>
 
-      <div className="hero-layout mt-10">
+      <div className="hero-layout mt-10 flex flex-col-reverse lg:flex-row lg:gap-12 lg:items-center items-center lg:items-center">
         {/* LEFT: Hero Content */}
-        <header className="flex flex-col justify-center md:w-full w-full lg:px-20 md:px-12 px-4 sm:px-5 flex-1">
+        <header className="flex flex-col justify-center w-full lg:px-20 md:px-12 px-4 sm:px-5 flex-1 lg:mt-0 mt-8 sm:mt-10 text-center lg:text-left">
           <div className="flex flex-col gap-2">
             <div className="hero-text">
               <h1>Hi! I'm CramDev</h1>
@@ -42,13 +42,13 @@ const Hero = () => {
               </h1>
             </div>
 
-            <p className="text-white-50 lg:text-xl md:text-lg sm:text-base text-sm relative z-10 pointer-events-none max-w-lg">
+            <p className="text-white-50 lg:text-xl md:text-lg sm:text-base text-sm relative z-10 pointer-events-none max-w-lg mx-auto lg:mx-0">
               As a dedicated BSIT student, I thrive on transforming ideas
               into stunning digital experiences.
               <br className="hidden sm:block" />
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-6 sm:mt-8">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-6 sm:mt-8 justify-center lg:justify-start">
               <style>{`
                 @keyframes bounce {
                   0%, 100% { transform: translateY(0); }
@@ -77,7 +77,7 @@ const Hero = () => {
               </button>
             </div>
 
-            <div className="flex gap-6 sm:gap-8 md:gap-12 mt-10 sm:mt-12 md:mt-16 text-center">
+            <div className="flex flex-wrap gap-4 sm:gap-6 md:gap-8 lg:gap-12 mt-10 sm:mt-12 md:mt-16 text-center justify-center lg:justify-start">
               <div>
                 <p className="text-2xl sm:text-3xl font-bold text-white">2+</p>
                 <p className="text-xs sm:text-sm text-gray-400">Years Exp</p>
@@ -97,7 +97,7 @@ const Hero = () => {
         </header>
 
         {/* RIGHT: Profile Image */}
-        <div className="hidden lg:flex flex-1 justify-center items-center relative z-10">
+        <div className="flex flex-1 justify-center items-center relative z-10 lg:mt-0 mt-20 sm:mt-40 mb-12 sm:mb-16 w-full">
           <style>{`
             @keyframes rotate-frame {
               from { transform: rotate(0deg); }
@@ -118,13 +118,13 @@ const Hero = () => {
               transform-origin: center;
             }
           `}</style>
-          <div className="relative w-64 h-64 xl:w-80 xl:h-80">
+          <div className="relative w-56 h-56 sm:w-60 sm:h-60 md:w-64 md:h-64 lg:w-72 lg:h-72 xl:w-80 xl:h-80">
             {/* Rotating frame - clockwise */}
             <div className="absolute inset-0 rounded-lg border-4 border-white/30 rotating-frame shadow-lg backdrop-blur-md bg-white/10"></div>
             {/* Rotating frame - counter-clockwise */}
             <div className="absolute inset-0 rounded-lg border-4 border-white/20 rotating-frame-reverse shadow-lg" style={{borderStyle: 'dashed'}}></div>
             {/* Profile image */}
-            <img src="/profile.jpg" alt="Profile" className="w-64 h-64 xl:w-80 xl:h-80 rounded-lg object-cover relative" />
+            <img src="/profile.jpg" alt="Profile" className="w-56 h-56 sm:w-60 sm:h-60 md:w-64 md:h-64 lg:w-72 lg:h-72 xl:w-80 xl:h-80 rounded-lg object-cover relative" />
           </div>
         </div>
       </div>
