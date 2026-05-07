@@ -1,4 +1,55 @@
+import { useState } from 'react';
+
 const Contact = () => {
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        message: ''
+    });
+    const [status, setStatus] = useState('');
+    const [loading, setLoading] = useState(false);
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const { id, value } = e.target;
+        setFormData(prev => ({
+            ...prev,
+            [id]: value
+        }));
+    };
+
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        setLoading(true);
+        setStatus('');
+
+        try {
+            const response = await fetch('https://formspree.io/f/mzdoabkk', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    name: formData.name,
+                    email: formData.email,
+                    message: formData.message,
+                    _replyto: formData.email,
+                })
+            });
+
+            if (response.ok) {
+                setStatus('success');
+                setFormData({ name: '', email: '', message: '' });
+                setTimeout(() => setStatus(''), 5000);
+            } else {
+                setStatus('error');
+            }
+        } catch (error) {
+            console.error('Email send failed:', error);
+            setStatus('error');
+        } finally {
+            setLoading(false);
+        }
+    };
 
     return (
         <section id="contact" className="bg-black text-white pt-16 sm:pt-20 pb-10 md:pt-24 md:pb-16 relative overflow-hidden">
@@ -99,7 +150,7 @@ const Contact = () => {
                         {/* Contact Form Container - Right Side */}
                         <div className="lg:col-span-2">
                             <div className="bg-white/5 border border-gray-700 rounded-lg p-6 sm:p-8">
-                                <form className="space-y-4 sm:space-y-5">
+                                <form className="space-y-4 sm:space-y-5" onSubmit={handleSubmit}>
                                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                         <div>
                                             <label htmlFor="name" className="block text-xs sm:text-sm font-semibold text-gray-200 mb-2">
@@ -109,6 +160,8 @@ const Contact = () => {
                                                 type="text"
                                                 id="name"
                                                 placeholder="Your name"
+                                                value={formData.name}
+                                                onChange={handleChange}
                                                 className="w-full px-4 py-2 bg-white/5 border border-gray-600 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-white transition text-sm"
                                                 required
                                             />
@@ -122,6 +175,8 @@ const Contact = () => {
                                                 type="email"
                                                 id="email"
                                                 placeholder="your@email.com"
+                                                value={formData.email}
+                                                onChange={handleChange}
                                                 className="w-full px-4 py-2 bg-white/5 border border-gray-600 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-white transition text-sm"
                                                 required
                                             />
@@ -135,17 +190,32 @@ const Contact = () => {
                                         <textarea
                                             id="message"
                                             placeholder="Tell me a bit about your project, timeline, and goals."
+                                            value={formData.message}
+                                            onChange={handleChange}
                                             rows={5}
                                             className="w-full px-4 py-2 bg-white/5 border border-gray-600 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-white transition resize-none text-sm"
                                             required
                                         ></textarea>
                                     </div>
 
+                                    {status === 'success' && (
+                                        <div className="p-3 sm:p-4 bg-green-500/10 border border-green-500/50 rounded-lg text-green-400 text-sm">
+                                            Message sent successfully! I'll get back to you soon.
+                                        </div>
+                                    )}
+
+                                    {status === 'error' && (
+                                        <div className="p-3 sm:p-4 bg-red-500/10 border border-red-500/50 rounded-lg text-red-400 text-sm">
+                                            Failed to send message. Please try again or contact me directly.
+                                        </div>
+                                    )}
+
                                     <button
                                         type="submit"
-                                        className="w-full px-6 py-2.5 bg-white text-black font-semibold rounded-lg hover:bg-gray-200 transition text-sm"
+                                        disabled={loading}
+                                        className="w-full px-6 py-2.5 bg-white text-black font-semibold rounded-lg hover:bg-gray-200 transition text-sm disabled:bg-gray-400 disabled:cursor-not-allowed"
                                     >
-                                        Send Message
+                                        {loading ? 'Sending...' : 'Send Message'}
                                     </button>
                                 </form>
                             </div>
