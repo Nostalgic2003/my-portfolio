@@ -1,6 +1,6 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { words } from "../constants";
 
 const Hero = () => {
@@ -14,13 +14,63 @@ const Hero = () => {
     );
   });
 
+  // Prevent right-click, copying, dragging on profile image
+  const handleContextMenu = (e: React.MouseEvent) => {
+    e.preventDefault();
+    return false;
+  };
+
+  const handleDragStart = (e: React.DragEvent) => {
+    e.preventDefault();
+    return false;
+  };
+
+  const handleCopy = (e: ClipboardEvent) => {
+    const selection = window.getSelection();
+    if (selection && selection.toString().length > 0) {
+      e.preventDefault();
+    }
+  };
+
+  // Add global protections on mount
+  useEffect(() => {
+    const profileImg = document.querySelector('.profile-image-protected');
+    if (profileImg) {
+      (profileImg as HTMLElement).addEventListener('contextmenu', handleContextMenu as any);
+      (profileImg as HTMLElement).addEventListener('dragstart', handleDragStart as any);
+      document.addEventListener('copy', handleCopy);
+    }
+
+    return () => {
+      if (profileImg) {
+        (profileImg as HTMLElement).removeEventListener('contextmenu', handleContextMenu as any);
+        (profileImg as HTMLElement).removeEventListener('dragstart', handleDragStart as any);
+      }
+      document.removeEventListener('copy', handleCopy);
+    };
+  }, []);
+
   return (
     <section id="hero" className="relative overflow-hidden">
+      <style>{`
+        .profile-image-protected {
+          -webkit-user-select: none;
+          -moz-user-select: none;
+          -ms-user-select: none;
+          user-select: none;
+          -webkit-user-drag: none;
+          -webkit-touch-callout: none;
+          pointer-events: auto;
+        }
+        .profile-image-protected::-webkit-media-controls {
+          display: none;
+        }
+      `}</style>
       <div className="absolute top-0 left-0 z-10">
         <img src="bg.png" alt="" />
       </div>
 
-      <div className="hero-layout mt-10 flex flex-col-reverse lg:flex-row lg:gap-12 lg:items-center items-center lg:items-center">
+      <div className="hero-layout mt-10 flex flex-col-reverse lg:flex-row lg:gap-12 lg:items-center items-center">
         {/* LEFT: Hero Content */}
         <header className="flex flex-col justify-center w-full lg:px-20 md:px-12 px-4 sm:px-5 flex-1 lg:mt-0 mt-8 sm:mt-10 text-center lg:text-left">
           <div className="flex flex-col gap-2">
@@ -129,7 +179,20 @@ const Hero = () => {
             {/* Rotating frame - counter-clockwise */}
             <div className="absolute inset-0 rounded-lg border-4 border-white/20 rotating-frame-reverse shadow-lg" style={{borderStyle: 'dashed'}}></div>
             {/* Profile image */}
-            <img src="/profile.jpg" alt="Profile" className="w-56 h-56 sm:w-60 sm:h-60 md:w-64 md:h-64 lg:w-72 lg:h-72 xl:w-80 xl:h-80 rounded-lg object-cover relative" />
+            <img 
+              src="/profile.jpg" 
+              alt="Profile" 
+              className="w-56 h-56 sm:w-60 sm:h-60 md:w-64 md:h-64 lg:w-72 lg:h-72 xl:w-80 xl:h-80 rounded-lg object-cover relative profile-image-protected select-none" 
+              onContextMenu={handleContextMenu}
+              onDragStart={handleDragStart}
+              draggable={false}
+              onLoad={(e) => {
+                const img = e.target as HTMLImageElement;
+                img.style.userSelect = 'none';
+                img.style.webkitUserSelect = 'none';
+                img.style.setProperty('-webkit-user-drag', 'none');
+              }}
+            />
           </div>
         </div>
       </div>
